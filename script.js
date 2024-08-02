@@ -73,6 +73,6 @@ const getFormField = (page, name) => evaluateElement(page, `[name="${name}"]`);
         
         await page.reload();
         await page.waitForSelector(COMMERCE_TAG_SELECTOR);
-        await sleep(500);
+        await sleep(1000);
     }
 })();
