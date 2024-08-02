@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const config = require('./config.json');
 
 const tests = [
-    // /(\d)\1{2,}/,
+    /(\d)\1{3,}/,
     /0123|1234|2345|3456|4567|5678|6789/,
     /9876|8765|7654|6543|5432|4321|3210/,
     /69420/,
@@ -83,6 +83,7 @@ const getFormField = (page, name) => evaluateElement(page, `[name="${name}"]`);
             if (!!match) {
                 console.log(match, number);
 
+                console.log("\x07");
                 await sleep(12345678);
             }
         }
