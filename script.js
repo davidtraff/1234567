@@ -1,6 +1,14 @@
 const puppeteer = require('puppeteer');
 const config = require('./config.json');
 
+const tests = [
+    // /(\d)\1{2,}/,
+    /0123|1234|2345|3456|4567|5678|6789/,
+    /9876|8765|7654|6543|5432|4321|3210/,
+    /69420/,
+    /6969/,
+];
+
 const sleep = (ms) => new Promise((resolve) => {
     setTimeout(resolve, ms);
 });
@@ -65,12 +73,20 @@ const getFormField = (page, name) => evaluateElement(page, `[name="${name}"]`);
                 .querySelector("body > main > div > div > div > commerce-checkout")
                 .shadowRoot
                 .querySelectorAll('div.cc_wpznfg17.cc_wpznfg18.cc_wpznfg1b');
-    
+
             return Array.from(numbers).map((elem) => elem.textContent);
         });
-    
-        console.log(items);
+
+        for (const number of items) {
+            const match = tests.find((r) => r.test(number));
         
+            if (!!match) {
+                console.log(match, number);
+
+                await sleep(12345678);
+            }
+        }
+
         await page.reload();
         await page.waitForSelector(COMMERCE_TAG_SELECTOR);
         await sleep(1000);
